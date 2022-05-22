@@ -13,16 +13,19 @@ public class Animal : MonoBehaviour
         }
     }
 
+
     public bool IsDead { get; private set; } = false;
 
     protected float moveSpeed;
 
+    [SerializeField] protected Animator anim;
     [SerializeField] private int health = 10;
 
     protected Rigidbody2D rb2d;
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         Move();
     }
@@ -45,7 +48,9 @@ public class Animal : MonoBehaviour
 
     public virtual void Die()
     {
+        Debug.Log("Anitmator" + anim);
         IsDead = true;
+        anim.SetBool("IsDead", IsDead);
         rb2d.velocity = Vector2.zero;
     }
 }

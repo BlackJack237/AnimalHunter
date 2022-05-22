@@ -334,9 +334,10 @@ MonoBehaviour:
   - {fileID: 603923612}
   animals:
   - {fileID: 6586952142564480272, guid: 078b2615269a4f946b93b68037e3b46d, type: 3}
+  - {fileID: 6188174914991173845, guid: 2b502c734af868a41bd96bc06c117802, type: 3}
   spawnTime: 3
   minSpeed: 2
-  maxSpeed: 7.5
+  maxSpeed: 5
 --- !u!1 &616124820
 GameObject:
   m_ObjectHideFlags: 0
