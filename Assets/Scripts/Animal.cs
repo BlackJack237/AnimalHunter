@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Animal : MonoBehaviour
-{
-    
+    {
     public float MoveSpeed {
         get { return moveSpeed; }
         set
@@ -20,13 +19,17 @@ public class Animal : MonoBehaviour
 
     [SerializeField] protected Animator anim;
     [SerializeField] private int health = 10;
+    [SerializeField] private int scorePoints = 0;
+    [SerializeField] private Gamemanager gameManager;
 
     protected Rigidbody2D rb2d;
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Gamemanager>();
         Move();
     }
 
@@ -48,9 +51,15 @@ public class Animal : MonoBehaviour
 
     public virtual void Die()
     {
-        Debug.Log("Anitmator" + anim);
         IsDead = true;
         anim.SetBool("IsDead", IsDead);
         rb2d.velocity = Vector2.zero;
+
+        AddScorePoints();
+    }
+
+    private void AddScorePoints()
+    {
+        gameManager.AddScore(scorePoints);
     }
 }

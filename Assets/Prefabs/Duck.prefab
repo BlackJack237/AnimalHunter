@@ -147,6 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   health: 10
+  scorePoints: 10
+  gameManager: {fileID: 0}
   fallDownSpeed: 5
 --- !u!95 &405624907
 Animator:

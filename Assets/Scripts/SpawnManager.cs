@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float spawnTime =3f;
     [SerializeField] private float minSpeed = 2f;
     [SerializeField] private float maxSpeed = 2f;
+
     private float spawnTimer = 0f;
 
     private void Update()
