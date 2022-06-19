@@ -23,12 +23,13 @@ public class Animal : MonoBehaviour
     [SerializeField] private Gamemanager gameManager;
 
     protected Rigidbody2D rb2d;
-
+    protected Collider2D collider;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Gamemanager>();
         Move();
     }
@@ -54,12 +55,19 @@ public class Animal : MonoBehaviour
         IsDead = true;
         anim.SetBool("IsDead", IsDead);
         rb2d.velocity = Vector2.zero;
-
+        collider.enabled = false;
+        StartCoroutine(DestroyAfterTime());
         AddScorePoints();
     }
 
     private void AddScorePoints()
     {
         gameManager.AddScore(scorePoints);
+    }
+
+    private IEnumerator DestroyAfterTime()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(this.gameObject);
     }
 }
