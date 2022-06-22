@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Animal : MonoBehaviour
-    {
+{
     public float MoveSpeed {
         get { return moveSpeed; }
         set
@@ -17,20 +17,24 @@ public class Animal : MonoBehaviour
 
     protected float moveSpeed;
 
-    [SerializeField] protected Animator anim;
+
     [SerializeField] private int health = 10;
     [SerializeField] private int scorePoints = 0;
-    [SerializeField] private Gamemanager gameManager;
+    [SerializeField] private AudioClip hitClip;
 
     protected Rigidbody2D rb2d;
-    protected Collider2D collider;
+    protected Collider2D animalCollider;
+    protected AudioSource source;
+    protected Animator anim;
+    private Gamemanager gameManager;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        animalCollider = GetComponent<Collider2D>();
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<Gamemanager>();
+        source = GetComponent<AudioSource>();
         Move();
     }
 
@@ -41,6 +45,7 @@ public class Animal : MonoBehaviour
 
     public void DealDamage (int damage)
     {
+        source.PlayOneShot(hitClip);
         if (IsDead) return;
 
         health = Mathf.Clamp(health, 0, health - damage);
@@ -55,7 +60,7 @@ public class Animal : MonoBehaviour
         IsDead = true;
         anim.SetBool("IsDead", IsDead);
         rb2d.velocity = Vector2.zero;
-        collider.enabled = false;
+        animalCollider.enabled = false;
         StartCoroutine(DestroyAfterTime());
         AddScorePoints();
     }
